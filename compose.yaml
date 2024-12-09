@@ -1,0 +1,24 @@
+version: "3.8"  # or higher if you're using newer versions of Docker Compose
+
+services:
+  server:
+    restart: always
+    build:
+      context: .
+    environment:
+      NODE_ENV: production
+    
+    container_name: api
+    image: aernjdz/fifrefly-api:latest
+
+    ports:
+      - 8080:8080
+    volumes:
+      - ./outages/latest:/usr/src/app/outages/latest  # Mount the outages folder
+      - ./outages/latest:/usr/src/app/outages/
+    user: "node"  # Ensure the container runs as the 'node' user defined in Dockerfile
+    working_dir: /usr/src/app
+
+# Volumes section (if needed for persistence, e.g., for PostgreSQL or other databases)
+# volumes:
+#   db-data:
